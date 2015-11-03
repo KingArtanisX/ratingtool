@@ -341,7 +341,7 @@ public class RatemDatabase {
     }
 
     public static abstract class LocationCategoryEntry implements BaseColumns {
-        public static final String TABLE_NAME = "location_criteria";
+        public static final String TABLE_NAME = "location_category";
         public static final String COLUMN_NAME_LOCATION_ID = "location_id";
         public static final String COLUMN_NAME_CATEGORY_ID = "category_id";
 
@@ -367,4 +367,33 @@ public class RatemDatabase {
         public static final String SQL_DELETE_ENTRIES =
                 "DROP TABLE IF EXISTS " + LocationCategoryEntry.TABLE_NAME;
     }
+
+    public static abstract class LocationCriteriaEntry implements BaseColumns {
+        public static final String TABLE_NAME = "location_criteria";
+        public static final String COLUMN_NAME_LOCATION_ID = "location_id";
+        public static final String COLUMN_NAME_CRITERION_ID = "criterion_id";
+
+        private static final String INT_TYPE = " INTEGER";
+
+        private static final String COMMA_SEP = ",";
+
+        public static final String SQL_CREATE_ENTRIES =
+                "CREATE TABLE " +
+                        LocationCriteriaEntry.TABLE_NAME +
+                        " (" +
+                        LocationCriteriaEntry.COLUMN_NAME_LOCATION_ID +
+                        INT_TYPE +
+                        COMMA_SEP +
+                        LocationCriteriaEntry.COLUMN_NAME_CRITERION_ID +
+                        INT_TYPE +
+                        COMMA_SEP +
+                        "PRIMARY KEY (" +
+                        LocationCriteriaEntry.COLUMN_NAME_LOCATION_ID +
+                        LocationCriteriaEntry.COLUMN_NAME_CRITERION_ID +
+                        " ))";
+
+        public static final String SQL_DELETE_ENTRIES =
+                "DROP TABLE IF EXISTS " + LocationCriteriaEntry.TABLE_NAME;
+    }
+
 }

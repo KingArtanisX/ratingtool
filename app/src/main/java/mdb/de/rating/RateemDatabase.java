@@ -5,14 +5,14 @@ import android.provider.BaseColumns;
 /**
  * Created by LethmateB on 03.11.2015.
  */
-public class RatemDatabase {
-    public RatemDatabase() {}
+public class RateemDatabase {
+    public RateemDatabase() {}
 
     public static abstract class CategoryEntry implements BaseColumns {
         public static final String TABLE_NAME = "categories";
         public static final String COLUMN_NAME_ID = "id";
         public static final String COLUMN_NAME_NAME = "name";
-        public static final String COLIMN_NAME_DELETABLE = "deletable";
+        public static final String COLUMN_NAME_DELETABLE = "deletable";
 
         private static final String VARCHAR_TYPE = " VARCHAR(255)";
         private static final String BOOL_TYPE = " BOOLEAN";
@@ -28,7 +28,7 @@ public class RatemDatabase {
                         CategoryEntry.COLUMN_NAME_NAME +
                         VARCHAR_TYPE +
                         COMMA_SEP +
-                        CategoryEntry.COLIMN_NAME_DELETABLE +
+                        CategoryEntry.COLUMN_NAME_DELETABLE +
                         BOOL_TYPE +
                         " )";
 
@@ -47,7 +47,7 @@ public class RatemDatabase {
         public static final String COLUMN_NAME_LONG = "longitude";
         public static final String COLUMN_NAME_LAT = "latitude";
         public static final String COLUMN_NAME_VISIBLE = "visible";
-        public static final String COLIMN_NAME_DELETABLE = "deletable";
+        public static final String COLUMN_NAME_DELETABLE = "deletable";
 
         private static final String VARCHAR_TYPE = " VARCHAR(255)";
         private static final String FLOAT_TYPE = " FLOAT";
@@ -85,7 +85,7 @@ public class RatemDatabase {
                         LocationEntry.COLUMN_NAME_VISIBLE +
                         BOOL_TYPE +
                         COMMA_SEP +
-                        LocationEntry.COLIMN_NAME_DELETABLE +
+                        LocationEntry.COLUMN_NAME_DELETABLE +
                         BOOL_TYPE +
                         " )";
 

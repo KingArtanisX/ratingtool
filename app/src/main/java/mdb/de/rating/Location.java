@@ -30,6 +30,11 @@ public class Location {
         this.longitude = longitude;
     }
 
+    public float getDistance(float lat1, float long1, float lat2, float long2) {
+        double dx = 111.3 * Math.cos(lat1) * (long1 - long2);
+        double dy = 111.3 * (lat1 - lat2);
+        return (float) Math.sqrt(dx*dx + dy*dy);
+    }
     public int getId() {
         return id;
     }

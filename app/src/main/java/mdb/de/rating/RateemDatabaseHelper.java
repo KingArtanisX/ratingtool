@@ -140,6 +140,25 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         return locationArrayList;
     }
 
+    public ArrayList<Location> getLocationsForCity(String city, int start) {
+        ArrayList<Location> locationArrayList = new ArrayList<>();
+
+        String selectQuery =
+                "SELECT * FROM " +
+                        RateemDatabase.LocationEntry.TABLE_NAME +
+                        " WHERE city = " +
+                        city;
+
+        Cursor cursor = this.db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do locationArrayList.add(fillLocationData(cursor));
+            while (cursor.moveToNext());
+        }
+        cursor.close();
+        return locationArrayList;
+    }
+
     /*Entfernungsberechnung: dist = 6378.388 * acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(lon2 - lon1))*/
 
 

@@ -111,7 +111,7 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Location> locationArrayList = new ArrayList<>();
 
         String categoryQuery =
-                        "SELECT id FROM " +
+                "SELECT id FROM " +
                         RateemDatabase.CategoryEntry.TABLE_NAME +
                         " WHERE name like " +
                         category +
@@ -160,4 +160,34 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public ArrayList<Location> getRanksForUser(String alias) {
+        ArrayList<Location> locationArrayList = new ArrayList<>();
+
+        String userQuery =
+                "SELECT id FROM " +
+                        RateemDatabase.UserEntry.TABLE_NAME +
+                        " WHERE alias = '" +
+                        alias + "'";
+
+        Cursor cursor = this.db.rawQuery(userQuery, null);
+        if (cursor.moveToFirst()) {
+
+            //FIXME: stopped here
+            String selectQuery =
+                    "SELECT rank_id FROM " +
+                            RateemDatabase.UserRanksEntry.TABLE_NAME +
+                            " WHERE user_id = " +
+                            cursor.getInt(0);
+            cursor.close();
+            cursor = this.db.rawQuery(selectQuery, null);
+
+            if (cursor.moveToFirst()) {
+                do locationArrayList.add(fillLocationData(cursor));
+                while (cursor.moveToNext());
+            }
+
+            cursor.close();
+        }
+        return locationArrayList;
+    }
 }

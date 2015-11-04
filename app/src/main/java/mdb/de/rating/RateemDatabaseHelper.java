@@ -27,7 +27,7 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         this.db.execSQL(RateemDatabase.CategoryEntry.SQL_CREATE_ENTRIES);
         this.db.execSQL(RateemDatabase.CriterionEntry.SQL_CREATE_ENTRIES);
         this.db.execSQL(RateemDatabase.CriterionValuationEntry.SQL_CREATE_ENTRIES);
-        this.db.execSQL(RateemDatabase.FavouritEntry.SQL_CREATE_ENTRIES);
+        this.db.execSQL(RateemDatabase.FavouriteEntry.SQL_CREATE_ENTRIES);
         this.db.execSQL(RateemDatabase.LocationCategoryEntry.SQL_CREATE_ENTRIES);
         this.db.execSQL(RateemDatabase.LocationCriteriaEntry.SQL_CREATE_ENTRIES);
         this.db.execSQL(RateemDatabase.LocationEntry.SQL_CREATE_ENTRIES);
@@ -144,7 +144,7 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Location> locationArrayList = new ArrayList<>();
 
         String selectQuery =
-                "SELECT * FROM " +
+                        "SELECT * FROM " +
                         RateemDatabase.LocationEntry.TABLE_NAME +
                         " WHERE city = " +
                         city;
@@ -158,8 +158,6 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return locationArrayList;
     }
-
-    /*Entfernungsberechnung: dist = 6378.388 * acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(lon2 - lon1))*/
 
 
 }

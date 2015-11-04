@@ -312,7 +312,7 @@ public class RateemDatabase {
                 "DROP TABLE IF EXISTS " + UserRanksEntry.TABLE_NAME;
     }
 
-    public static abstract class FavouritEntry implements BaseColumns {
+    public static abstract class FavouriteEntry implements BaseColumns {
         public static final String TABLE_NAME = "favourits";
         public static final String COLUMN_NAME_USER_ID = "user_id";
         public static final String COLUMN_NAME_LOCATION_ID = "location_id";
@@ -323,21 +323,21 @@ public class RateemDatabase {
 
         public static final String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " +
-                        FavouritEntry.TABLE_NAME +
+                        FavouriteEntry.TABLE_NAME +
                         " (" +
-                        FavouritEntry.COLUMN_NAME_USER_ID +
+                        FavouriteEntry.COLUMN_NAME_USER_ID +
                         INT_TYPE +
                         COMMA_SEP +
-                        FavouritEntry.COLUMN_NAME_LOCATION_ID +
+                        FavouriteEntry.COLUMN_NAME_LOCATION_ID +
                         INT_TYPE +
                         COMMA_SEP +
                         "PRIMARY KEY (" +
-                        FavouritEntry.COLUMN_NAME_USER_ID +
-                        FavouritEntry.COLUMN_NAME_LOCATION_ID +
+                        FavouriteEntry.COLUMN_NAME_USER_ID +
+                        FavouriteEntry.COLUMN_NAME_LOCATION_ID +
                         " ))";
 
         public static final String SQL_DELETE_ENTRIES =
-                "DROP TABLE IF EXISTS " + FavouritEntry.TABLE_NAME;
+                "DROP TABLE IF EXISTS " + FavouriteEntry.TABLE_NAME;
     }
 
     public static abstract class LocationCategoryEntry implements BaseColumns {

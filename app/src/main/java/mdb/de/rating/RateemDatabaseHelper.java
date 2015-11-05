@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.util.ArrayList;
 
 /**
@@ -204,8 +203,8 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
      * @param alias the username
      * @return all ranks the user has achieved
      */
-    public ArrayList<Location> getRanksForUser(String alias) {
-        ArrayList<Location> locationArrayList = new ArrayList<>();
+    public ArrayList<Rank> getRanksForUser(String alias) {
+        ArrayList<Rank> userRanksList = new ArrayList<>();
 
         String userQuery =
                 "SELECT id FROM " +
@@ -215,23 +214,33 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = this.db.rawQuery(userQuery, null);
         if (cursor.moveToFirst()) {
-
-            //FIXME: stopped here
-            String selectQuery =
+            String rankQuery =
                     "SELECT rank_id FROM " +
                             RateemDatabase.UserRanksEntry.TABLE_NAME +
                             " WHERE user_id = " +
                             cursor.getInt(0);
             cursor.close();
-            cursor = this.db.rawQuery(selectQuery, null);
+            cursor = this.db.rawQuery(rankQuery, null);
 
             if (cursor.moveToFirst()) {
-                do locationArrayList.add(fillLocationData(cursor));
-                while (cursor.moveToNext());
+                String selectQuery =
+                        "SELECT name FROM " +
+                                RateemDatabase.RankEntry.TABLE_NAME +
+                                " WHERE id = " +
+                                cursor.getInt(0);
+                cursor.close();
+                cursor = this.db.rawQuery(selectQuery, null);
+                if (cursor.moveToFirst()) {
+                    do {
+                        Rank rank = new Rank();
+                        rank.setName(cursor.getString(0));
+                        userRanksList.add(rank);
+                    }
+                    while (cursor.moveToNext());
+                }
             }
-
-            cursor.close();
         }
-        return locationArrayList;
+        cursor.close();
+        return userRanksList;
     }
 }

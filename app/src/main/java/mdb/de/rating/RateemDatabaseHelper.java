@@ -10,6 +10,13 @@ import java.util.ArrayList;
 /**
  * Created by LethmateB on 04.11.2015.
  */
+
+/**
+ * The Rate'emDatabaseHelper is used for certain standard database calls
+ * that are used multiple times in the app.
+ *
+ * SEARCH_LIMIT is used for the lazy loading.
+ */
 public class RateemDatabaseHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASENAME = "RateemDatabase.db";
@@ -21,6 +28,11 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASENAME, null, DATABASE_VERSION);
     }
 
+    /**
+     * Set up all the databases on the device
+     *
+     * @param db the database
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         this.db = db;
@@ -43,6 +55,11 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     *
+     * @param cursor data for the location
+     * @return the location
+     */
     public Location fillLocationData(Cursor cursor) {
         Location location = new Location();
         location.setName(cursor.getString(1));
@@ -56,6 +73,11 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         return location;
     }
 
+    /**
+     *
+     * @param start id to start with
+     * @return a list of SEARCH_LIMIT (default 50) locations without any restriction
+     */
     public ArrayList<Location> getAllLocations(int start) {
         ArrayList<Location> locationArrayList = new ArrayList<>();
         String selectQuery =
@@ -80,6 +102,12 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         return locationArrayList;
     }
 
+    /**
+     *
+     * @param search the search string
+     * @return all locations that have the string occuring in
+     * the city, the postcode, the country or the name
+     */
     public ArrayList<Location> getLocationsForSearch(String search) {
         ArrayList<Location> locationArrayList = new ArrayList<>();
 
@@ -107,6 +135,12 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         return locationArrayList;
     }
 
+    /**
+     *
+     * @param category the category to get locations for
+     * @param start the id to start with
+     * @return a list of SEARCH_LIMIT (default 50) locations that are attached to this category
+     */
     public ArrayList<Location> getLocationsForCategory(String category, int start) {
         ArrayList<Location> locationArrayList = new ArrayList<>();
 
@@ -140,6 +174,12 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         return locationArrayList;
     }
 
+    /**
+     *
+     * @param city the city to find locations for
+     * @param start the id to start with
+     * @return a list of all locations in the city
+     */
     public ArrayList<Location> getLocationsForCity(String city, int start) {
         ArrayList<Location> locationArrayList = new ArrayList<>();
 
@@ -159,7 +199,11 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         return locationArrayList;
     }
 
-
+    /**
+     *
+     * @param alias the username
+     * @return all ranks the user has achieved
+     */
     public ArrayList<Location> getRanksForUser(String alias) {
         ArrayList<Location> locationArrayList = new ArrayList<>();
 

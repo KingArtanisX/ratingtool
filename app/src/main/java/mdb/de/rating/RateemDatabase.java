@@ -5,9 +5,16 @@ import android.provider.BaseColumns;
 /**
  * Created by LethmateB on 03.11.2015.
  */
+
+/**
+ * The Database
+ */
 public class RateemDatabase {
     public RateemDatabase() {}
 
+    /**
+     * The category entry for the Database
+     */
     public static abstract class CategoryEntry implements BaseColumns {
         public static final String TABLE_NAME = "categories";
         public static final String COLUMN_NAME_ID = "id";
@@ -36,6 +43,9 @@ public class RateemDatabase {
                 "DROP TABLE IF EXISTS " + CategoryEntry.TABLE_NAME;
     }
 
+    /**
+     * The location entry for the Database
+     */
     public static abstract class LocationEntry implements BaseColumns {
         public static final String TABLE_NAME = "locations";
         public static final String COLUMN_NAME_ID = "id";
@@ -93,6 +103,9 @@ public class RateemDatabase {
                 "DROP TABLE IF EXISTS " + LocationEntry.TABLE_NAME;
     }
 
+    /**
+     * The user entry for the Database
+     */
     public static abstract class UserEntry implements BaseColumns {
         public static final String TABLE_NAME = "users";
         public static final String COLUMN_NAME_ID = "id";
@@ -134,6 +147,9 @@ public class RateemDatabase {
                 "DROP TABLE IF EXISTS " + UserEntry.TABLE_NAME;
     }
 
+    /**
+     * The rank entry for the Database
+     */
     public static abstract class RankEntry implements BaseColumns {
         public static final String TABLE_NAME = "ranks";
         public static final String COLUMN_NAME_ID = "id";
@@ -155,6 +171,9 @@ public class RateemDatabase {
                 "DROP TABLE IF EXISTS " + RankEntry.TABLE_NAME;
     }
 
+    /**
+     * The position entry for the Database
+     */
     public static abstract class PositionEntry implements BaseColumns {
         public static final String TABLE_NAME = "positions";
         public static final String COLUMN_NAME_ID = "id";
@@ -192,6 +211,9 @@ public class RateemDatabase {
                 "DROP TABLE IF EXISTS " + PositionEntry.TABLE_NAME;
     }
 
+    /**
+     * The rating entry for the Database
+     */
     public static abstract class RatingEntry implements BaseColumns {
         public static final String TABLE_NAME = "ratings";
         public static final String COLUMN_NAME_ID = "id";
@@ -228,6 +250,9 @@ public class RateemDatabase {
                 "DROP TABLE IF EXISTS " + RatingEntry.TABLE_NAME;
     }
 
+    /**
+     * The criterion entry for the Database
+     */
     public static abstract class CriterionEntry implements BaseColumns {
         public static final String TABLE_NAME = "criteria";
         public static final String COLUMN_NAME_ID = "id";
@@ -252,6 +277,9 @@ public class RateemDatabase {
                 "DROP TABLE IF EXISTS " + CriterionEntry.TABLE_NAME;
     }
 
+    /**
+     * The criterions valuations entry for the Database
+     */
     public static abstract class CriterionValuationEntry implements BaseColumns {
         public static final String TABLE_NAME = "criteria_valuations";
         public static final String COLUMN_NAME_RATING_ID = "rating_id";
@@ -284,6 +312,9 @@ public class RateemDatabase {
                 "DROP TABLE IF EXISTS " + CriterionValuationEntry.TABLE_NAME;
     }
 
+    /**
+     * The users ranks entry for the Database
+     */
     public static abstract class UserRanksEntry implements BaseColumns {
         public static final String TABLE_NAME = "user_ranks";
         public static final String COLUMN_NAME_USER_ID = "user_id";
@@ -312,6 +343,9 @@ public class RateemDatabase {
                 "DROP TABLE IF EXISTS " + UserRanksEntry.TABLE_NAME;
     }
 
+    /**
+     * The users favourites entry for the Database
+     */
     public static abstract class FavouriteEntry implements BaseColumns {
         public static final String TABLE_NAME = "favourits";
         public static final String COLUMN_NAME_USER_ID = "user_id";
@@ -340,6 +374,9 @@ public class RateemDatabase {
                 "DROP TABLE IF EXISTS " + FavouriteEntry.TABLE_NAME;
     }
 
+    /**
+     * The locations category entry for the Database
+     */
     public static abstract class LocationCategoryEntry implements BaseColumns {
         public static final String TABLE_NAME = "location_category";
         public static final String COLUMN_NAME_LOCATION_ID = "location_id";
@@ -368,6 +405,9 @@ public class RateemDatabase {
                 "DROP TABLE IF EXISTS " + LocationCategoryEntry.TABLE_NAME;
     }
 
+    /**
+     * The locations criterion entry for the Database
+     */
     public static abstract class LocationCriteriaEntry implements BaseColumns {
         public static final String TABLE_NAME = "location_criteria";
         public static final String COLUMN_NAME_LOCATION_ID = "location_id";

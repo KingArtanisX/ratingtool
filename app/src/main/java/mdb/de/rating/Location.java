@@ -3,6 +3,10 @@ package mdb.de.rating;
 /**
  * Created by LethmateB on 04.11.2015.
  */
+
+/**
+ * A Location
+ */
 public class Location {
 
     public int id;
@@ -30,6 +34,14 @@ public class Location {
         this.longitude = longitude;
     }
 
+    /**
+     *
+     * @param lat1 the latitude of first position
+     * @param long1 the longitude of first position
+     * @param lat2 the latitude of second position
+     * @param long2 the longitude of second position
+     * @return the distance between the two GPS positions
+     */
     public float getDistance(float lat1, float long1, float lat2, float long2) {
         double dx = 111.3 * Math.cos(lat1) * (long1 - long2);
         double dy = 111.3 * (lat1 - lat2);

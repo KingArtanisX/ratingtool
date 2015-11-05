@@ -5,6 +5,10 @@ import java.security.Timestamp;
 /**
  * Created by LethmateB on 04.11.2015.
  */
+
+/**
+ * A User.
+ */
 public class User {
 
     public String alias;

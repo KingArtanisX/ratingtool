@@ -3,6 +3,10 @@ package mdb.de.rating;
 /**
  * Created by LethmateB on 04.11.2015.
  */
+
+/**
+ * A Rank
+ */
 public class Rank {
 
     public String name;

@@ -5,6 +5,10 @@ import org.w3c.dom.Text;
 /**
  * Created by LethmateB on 04.11.2015.
  */
+
+/**
+ * A single Rating for a location.
+ */
 public class Rating {
     public Text text;
     public int user_id;

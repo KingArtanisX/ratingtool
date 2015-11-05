@@ -9,8 +9,15 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ * The main activity. The app starts here.
+ */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * Called when the activity is created. Sets up some basic settings.
+     * @param savedInstanceState the state of the instance
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

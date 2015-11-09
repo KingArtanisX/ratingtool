@@ -5,7 +5,7 @@ package mdb.de.rating;
  */
 
 /**
- * The functionality behind the GUI for a new rating of a location.
+ * The functionality behind the GUI for a new rating of a spot.
  */
 public class NewRatingActivity {
 }

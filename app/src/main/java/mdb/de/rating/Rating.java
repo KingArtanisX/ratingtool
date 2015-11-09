@@ -7,23 +7,23 @@ import org.w3c.dom.Text;
  */
 
 /**
- * A single Rating for a location.
+ * A single Rating for a spot.
  */
 public class Rating {
     public Text text;
     public int user_id;
-    public int location_id;
+    public int spot_id;
     public int reports;
 
     public Rating() {
         super();
     }
 
-    public Rating(Text text, int user_id, int location_id, int reports) {
+    public Rating(Text text, int user_id, int spot_id, int reports) {
         super();
         this.text = text;
         this.user_id = user_id;
-        this.location_id = location_id;
+        this.spot_id = spot_id;
         this.reports = reports;
     }
 
@@ -43,12 +43,12 @@ public class Rating {
         this.user_id = user_id;
     }
 
-    public int getLocation_id() {
-        return location_id;
+    public int getSpot_id() {
+        return spot_id;
     }
 
-    public void setLocation_id(int location_id) {
-        this.location_id = location_id;
+    public void setSpot_id(int spot_id) {
+        this.spot_id = spot_id;
     }
 
     public int getReports() {

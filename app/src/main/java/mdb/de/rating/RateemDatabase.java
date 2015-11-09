@@ -44,10 +44,10 @@ public class RateemDatabase {
     }
 
     /**
-     * The location entry for the Database
+     * The spot entry for the Database
      */
-    public static abstract class LocationEntry implements BaseColumns {
-        public static final String TABLE_NAME = "locations";
+    public static abstract class SpotEntry implements BaseColumns {
+        public static final String TABLE_NAME = "spots";
         public static final String COLUMN_NAME_ID = "id";
         public static final String COLUMN_NAME_NAME = "name";
         public static final String COLUMN_NAME_STREET = "street";
@@ -67,40 +67,40 @@ public class RateemDatabase {
 
         public static final String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " +
-                        LocationEntry.TABLE_NAME +
+                        SpotEntry.TABLE_NAME +
                         " (" +
-                        LocationEntry.COLUMN_NAME_ID +
+                        SpotEntry.COLUMN_NAME_ID +
                         " INTEGER PRIMARY KEY," +
-                        LocationEntry.COLUMN_NAME_NAME +
+                        SpotEntry.COLUMN_NAME_NAME +
                         VARCHAR_TYPE +
                         COMMA_SEP +
-                        LocationEntry.COLUMN_NAME_STREET +
+                        SpotEntry.COLUMN_NAME_STREET +
                         VARCHAR_TYPE +
                         COMMA_SEP +
-                        LocationEntry.COLUMN_NAME_POSTCODE +
+                        SpotEntry.COLUMN_NAME_POSTCODE +
                         VARCHAR_TYPE +
                         COMMA_SEP +
-                        LocationEntry.COLUMN_NAME_CITY +
+                        SpotEntry.COLUMN_NAME_CITY +
                         VARCHAR_TYPE +
                         COMMA_SEP +
-                        LocationEntry.COLUMN_NAME_COUNTRY +
+                        SpotEntry.COLUMN_NAME_COUNTRY +
                         VARCHAR_TYPE +
                         COMMA_SEP +
-                        LocationEntry.COLUMN_NAME_LONG +
+                        SpotEntry.COLUMN_NAME_LONG +
                         FLOAT_TYPE +
                         COMMA_SEP +
-                        LocationEntry.COLUMN_NAME_LAT +
+                        SpotEntry.COLUMN_NAME_LAT +
                         FLOAT_TYPE +
                         COMMA_SEP +
-                        LocationEntry.COLUMN_NAME_VISIBLE +
+                        SpotEntry.COLUMN_NAME_VISIBLE +
                         BOOL_TYPE +
                         COMMA_SEP +
-                        LocationEntry.COLUMN_NAME_DELETABLE +
+                        SpotEntry.COLUMN_NAME_DELETABLE +
                         BOOL_TYPE +
                         " )";
 
         public static final String SQL_DELETE_ENTRIES =
-                "DROP TABLE IF EXISTS " + LocationEntry.TABLE_NAME;
+                "DROP TABLE IF EXISTS " + SpotEntry.TABLE_NAME;
     }
 
     /**
@@ -219,7 +219,7 @@ public class RateemDatabase {
         public static final String COLUMN_NAME_ID = "id";
         public static final String COLUMN_NAME_TEXT = "text";
         public static final String COLUMN_NAME_USER_ID = "user_id";
-        public static final String COLUMN_NAME_LOCATION_ID = "location_id";
+        public static final String COLUMN_NAME_LOCATION_ID = "spot_id";
         public static final String COLUMN_NAME_REPORTS = "reports";
 
         private static final String INT_TYPE = " INTEGER";
@@ -304,7 +304,7 @@ public class RateemDatabase {
                         INT_TYPE +
                         COMMA_SEP +
                         "PRIMARY KEY (" +
-                        CriterionValuationEntry.COLUMN_NAME_RATING_ID +
+                        CriterionValuationEntry.COLUMN_NAME_RATING_ID  + "," +
                         CriterionValuationEntry.COLUMN_NAME_CRITERION_ID +
                         " ))";
 
@@ -335,7 +335,7 @@ public class RateemDatabase {
                         INT_TYPE +
                         COMMA_SEP +
                         "PRIMARY KEY (" +
-                        UserRanksEntry.COLUMN_NAME_USER_ID +
+                        UserRanksEntry.COLUMN_NAME_USER_ID  + "," +
                         UserRanksEntry.COLUMN_NAME_RANK_ID +
                         " ))";
 
@@ -349,7 +349,7 @@ public class RateemDatabase {
     public static abstract class FavouriteEntry implements BaseColumns {
         public static final String TABLE_NAME = "favourits";
         public static final String COLUMN_NAME_USER_ID = "user_id";
-        public static final String COLUMN_NAME_LOCATION_ID = "location_id";
+        public static final String COLUMN_NAME_LOCATION_ID = "spot_id";
 
         private static final String INT_TYPE = " INTEGER";
 
@@ -366,7 +366,7 @@ public class RateemDatabase {
                         INT_TYPE +
                         COMMA_SEP +
                         "PRIMARY KEY (" +
-                        FavouriteEntry.COLUMN_NAME_USER_ID +
+                        FavouriteEntry.COLUMN_NAME_USER_ID  + "," +
                         FavouriteEntry.COLUMN_NAME_LOCATION_ID +
                         " ))";
 
@@ -375,11 +375,11 @@ public class RateemDatabase {
     }
 
     /**
-     * The locations category entry for the Database
+     * The spots category entry for the Database
      */
-    public static abstract class LocationCategoryEntry implements BaseColumns {
-        public static final String TABLE_NAME = "location_category";
-        public static final String COLUMN_NAME_LOCATION_ID = "location_id";
+    public static abstract class SpotCategoryEntry implements BaseColumns {
+        public static final String TABLE_NAME = "spot_category";
+        public static final String COLUMN_NAME_LOCATION_ID = "spot_id";
         public static final String COLUMN_NAME_CATEGORY_ID = "category_id";
 
         private static final String INT_TYPE = " INTEGER";
@@ -388,29 +388,29 @@ public class RateemDatabase {
 
         public static final String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " +
-                        LocationCategoryEntry.TABLE_NAME +
+                        SpotCategoryEntry.TABLE_NAME +
                         " (" +
-                        LocationCategoryEntry.COLUMN_NAME_LOCATION_ID +
+                        SpotCategoryEntry.COLUMN_NAME_LOCATION_ID +
                         INT_TYPE +
                         COMMA_SEP +
-                        LocationCategoryEntry.COLUMN_NAME_CATEGORY_ID +
+                        SpotCategoryEntry.COLUMN_NAME_CATEGORY_ID +
                         INT_TYPE +
                         COMMA_SEP +
                         "PRIMARY KEY (" +
-                        LocationCategoryEntry.COLUMN_NAME_LOCATION_ID +
-                        LocationCategoryEntry.COLUMN_NAME_CATEGORY_ID +
+                        SpotCategoryEntry.COLUMN_NAME_LOCATION_ID  + "," +
+                        SpotCategoryEntry.COLUMN_NAME_CATEGORY_ID +
                         " ))";
 
         public static final String SQL_DELETE_ENTRIES =
-                "DROP TABLE IF EXISTS " + LocationCategoryEntry.TABLE_NAME;
+                "DROP TABLE IF EXISTS " + SpotCategoryEntry.TABLE_NAME;
     }
 
     /**
-     * The locations criterion entry for the Database
+     * The spots criterion entry for the Database
      */
-    public static abstract class LocationCriteriaEntry implements BaseColumns {
-        public static final String TABLE_NAME = "location_criteria";
-        public static final String COLUMN_NAME_LOCATION_ID = "location_id";
+    public static abstract class SpotCriteriaEntry implements BaseColumns {
+        public static final String TABLE_NAME = "spot_criteria";
+        public static final String COLUMN_NAME_LOCATION_ID = "spot_id";
         public static final String COLUMN_NAME_CRITERION_ID = "criterion_id";
 
         private static final String INT_TYPE = " INTEGER";
@@ -419,21 +419,21 @@ public class RateemDatabase {
 
         public static final String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " +
-                        LocationCriteriaEntry.TABLE_NAME +
+                        SpotCriteriaEntry.TABLE_NAME +
                         " (" +
-                        LocationCriteriaEntry.COLUMN_NAME_LOCATION_ID +
+                        SpotCriteriaEntry.COLUMN_NAME_LOCATION_ID +
                         INT_TYPE +
                         COMMA_SEP +
-                        LocationCriteriaEntry.COLUMN_NAME_CRITERION_ID +
+                        SpotCriteriaEntry.COLUMN_NAME_CRITERION_ID +
                         INT_TYPE +
                         COMMA_SEP +
                         "PRIMARY KEY (" +
-                        LocationCriteriaEntry.COLUMN_NAME_LOCATION_ID +
-                        LocationCriteriaEntry.COLUMN_NAME_CRITERION_ID +
+                        SpotCriteriaEntry.COLUMN_NAME_LOCATION_ID + "," +
+                        SpotCriteriaEntry.COLUMN_NAME_CRITERION_ID +
                         " ))";
 
         public static final String SQL_DELETE_ENTRIES =
-                "DROP TABLE IF EXISTS " + LocationCriteriaEntry.TABLE_NAME;
+                "DROP TABLE IF EXISTS " + SpotCriteriaEntry.TABLE_NAME;
     }
 
 }

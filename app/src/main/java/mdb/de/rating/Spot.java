@@ -4,10 +4,12 @@ package mdb.de.rating;
  * Created by LethmateB on 04.11.2015.
  */
 
+import android.location.Location;
+
 /**
- * A Location
+ * A Spot
  */
-public class Location {
+public class Spot {
 
     public int id;
     public String name;
@@ -15,38 +17,25 @@ public class Location {
     public String postcode;
     public String city;
     public String country;
-    public float latitude;
-    public float longitude;
     public boolean visible;
+    public Location location;
 
-    public Location() {
+    public Spot() {
         super();
     }
 
-    public Location(String name, String street, String postcode, String city, String country, float latitude, float longitude) {
+    public Spot(String name, String street, String postcode, String city, String country, float latitude, float longitude) {
         super();
         this.name = name;
         this.street = street;
         this.postcode = postcode;
         this.city = city;
         this.country = country;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location.setLongitude(longitude);
+        this.location.setLatitude(latitude);
     }
 
-    /**
-     *
-     * @param lat1 the latitude of first position
-     * @param long1 the longitude of first position
-     * @param lat2 the latitude of second position
-     * @param long2 the longitude of second position
-     * @return the distance between the two GPS positions
-     */
-    public float getDistance(float lat1, float long1, float lat2, float long2) {
-        double dx = 111.3 * Math.cos(lat1) * (long1 - long2);
-        double dy = 111.3 * (lat1 - lat2);
-        return (float) Math.sqrt(dx*dx + dy*dy);
-    }
+
     public int getId() {
         return id;
     }
@@ -89,22 +78,6 @@ public class Location {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public float getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(float latitude) {
-        this.latitude = latitude;
-    }
-
-    public float getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(float longitude) {
-        this.longitude = longitude;
     }
 
     public boolean isVisible() {

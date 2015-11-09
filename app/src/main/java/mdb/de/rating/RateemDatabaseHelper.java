@@ -39,9 +39,9 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         this.db.execSQL(RateemDatabase.CriterionEntry.SQL_CREATE_ENTRIES);
         this.db.execSQL(RateemDatabase.CriterionValuationEntry.SQL_CREATE_ENTRIES);
         this.db.execSQL(RateemDatabase.FavouriteEntry.SQL_CREATE_ENTRIES);
-        this.db.execSQL(RateemDatabase.LocationCategoryEntry.SQL_CREATE_ENTRIES);
-        this.db.execSQL(RateemDatabase.LocationCriteriaEntry.SQL_CREATE_ENTRIES);
-        this.db.execSQL(RateemDatabase.LocationEntry.SQL_CREATE_ENTRIES);
+        this.db.execSQL(RateemDatabase.SpotCategoryEntry.SQL_CREATE_ENTRIES);
+        this.db.execSQL(RateemDatabase.SpotCriteriaEntry.SQL_CREATE_ENTRIES);
+        this.db.execSQL(RateemDatabase.SpotEntry.SQL_CREATE_ENTRIES);
         this.db.execSQL(RateemDatabase.PositionEntry.SQL_CREATE_ENTRIES);
         this.db.execSQL(RateemDatabase.RankEntry.SQL_CREATE_ENTRIES);
         this.db.execSQL(RateemDatabase.RatingEntry.SQL_CREATE_ENTRIES);
@@ -56,34 +56,34 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
 
     /**
      *
-     * @param cursor data for the location
-     * @return the location
+     * @param cursor data for the spot
+     * @return the spot
      */
-    public Location fillLocationData(Cursor cursor) {
-        Location location = new Location();
-        location.setName(cursor.getString(1));
-        location.setStreet(cursor.getString(2));
-        location.setPostcode(cursor.getString(3));
-        location.setCity(cursor.getString(4));
-        location.setCountry(cursor.getString(5));
-        location.setLatitude(cursor.getFloat(6));
-        location.setLongitude(cursor.getFloat(7));
+    public Spot fillSpotData(Cursor cursor) {
+        Spot spot = new Spot();
+        spot.setName(cursor.getString(1));
+        spot.setStreet(cursor.getString(2));
+        spot.setPostcode(cursor.getString(3));
+        spot.setCity(cursor.getString(4));
+        spot.setCountry(cursor.getString(5));
+        spot.location.setLatitude(cursor.getFloat(6));
+        spot.location.setLongitude(cursor.getFloat(7));
 
-        return location;
+        return spot;
     }
 
     /**
      *
      * @param start id to start with
-     * @return a list of SEARCH_LIMIT (default 50) locations without any restriction
+     * @return a list of SEARCH_LIMIT (default 50) spots without any restriction
      */
-    public ArrayList<Location> getAllLocations(int start) {
-        ArrayList<Location> locationArrayList = new ArrayList<>();
+    public ArrayList<Spot> getAllSpots(int start) {
+        ArrayList<Spot> spotArrayList = new ArrayList<>();
         String selectQuery =
                         "SELECT * FROM " +
-                        RateemDatabase.LocationEntry.TABLE_NAME +
+                        RateemDatabase.SpotEntry.TABLE_NAME +
                         " WHERE " +
-                        RateemDatabase.LocationEntry.COLUMN_NAME_ID +
+                        RateemDatabase.SpotEntry.COLUMN_NAME_ID +
                         ">" +
                         start +
                         " LIMIT " +
@@ -92,27 +92,27 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                Location location = fillLocationData(cursor);
-                locationArrayList.add(location);
+                Spot spot = fillSpotData(cursor);
+                spotArrayList.add(spot);
             } while (cursor.moveToNext());
         }
 
         cursor.close();
-        return locationArrayList;
+        return spotArrayList;
     }
 
     /**
      *
      * @param search the search string
-     * @return all locations that have the string occuring in
+     * @return all spots that have the string occuring in
      * the city, the postcode, the country or the name
      */
-    public ArrayList<Location> getLocationsForSearch(String search) {
-        ArrayList<Location> locationArrayList = new ArrayList<>();
+    public ArrayList<Spot> getSpotsForSearch(String search) {
+        ArrayList<Spot> spotArrayList = new ArrayList<>();
 
         String selectQuery =
                         "SELECT * FROM " +
-                        RateemDatabase.LocationEntry.TABLE_NAME +
+                        RateemDatabase.SpotEntry.TABLE_NAME +
                         " WHERE city like '%" +
                         search +
                         "%' OR postcode like '%" +
@@ -125,23 +125,23 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                Location location = fillLocationData(cursor);
-                locationArrayList.add(location);
+                Spot spot = fillSpotData(cursor);
+                spotArrayList.add(spot);
             } while (cursor.moveToNext());
         }
 
         cursor.close();
-        return locationArrayList;
+        return spotArrayList;
     }
 
     /**
      *
-     * @param category the category to get locations for
+     * @param category the category to get spots for
      * @param start the id to start with
-     * @return a list of SEARCH_LIMIT (default 50) locations that are attached to this category
+     * @return a list of SEARCH_LIMIT (default 50) spots that are attached to this category
      */
-    public ArrayList<Location> getLocationsForCategory(String category, int start) {
-        ArrayList<Location> locationArrayList = new ArrayList<>();
+    public ArrayList<Spot> getSpotsForCategory(String category, int start) {
+        ArrayList<Spot> spotArrayList = new ArrayList<>();
 
         String categoryQuery =
                 "SELECT id FROM " +
@@ -157,45 +157,45 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             String selectQuery =
                     "SELECT * FROM " +
-                            RateemDatabase.LocationEntry.TABLE_NAME +
+                            RateemDatabase.SpotEntry.TABLE_NAME +
                             " WHERE category_id = " +
                             cursor.getInt(0);
             cursor.close();
             cursor = this.db.rawQuery(selectQuery, null);
 
             if (cursor.moveToFirst()) {
-                do locationArrayList.add(fillLocationData(cursor));
+                do spotArrayList.add(fillSpotData(cursor));
                 while (cursor.moveToNext());
             }
 
             cursor.close();
         }
-        return locationArrayList;
+        return spotArrayList;
     }
 
     /**
      *
-     * @param city the city to find locations for
+     * @param city the city to find spots for
      * @param start the id to start with
-     * @return a list of all locations in the city
+     * @return a list of all spots in the city
      */
-    public ArrayList<Location> getLocationsForCity(String city, int start) {
-        ArrayList<Location> locationArrayList = new ArrayList<>();
+    public ArrayList<Spot> getSpotsForCity(String city, int start) {
+        ArrayList<Spot> spotArrayList = new ArrayList<>();
 
         String selectQuery =
                         "SELECT * FROM " +
-                        RateemDatabase.LocationEntry.TABLE_NAME +
-                        " WHERE city = " +
-                        city;
+                        RateemDatabase.SpotEntry.TABLE_NAME +
+                        " WHERE city = '" +
+                        city + "'";
 
         Cursor cursor = this.db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
-            do locationArrayList.add(fillLocationData(cursor));
+            do spotArrayList.add(fillSpotData(cursor));
             while (cursor.moveToNext());
         }
         cursor.close();
-        return locationArrayList;
+        return spotArrayList;
     }
 
     /**

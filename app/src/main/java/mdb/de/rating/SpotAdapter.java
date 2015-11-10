@@ -41,8 +41,7 @@ public class SpotAdapter extends ArrayAdapter<Spot>{
             row.setTag(holder);
         } else holder = (SpotHolder) row.getTag();
 
-        Spot spot = data.get(position);
-
+        //TODO: finish
 
         return row;
     }

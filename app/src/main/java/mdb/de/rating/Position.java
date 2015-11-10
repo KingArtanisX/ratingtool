@@ -28,25 +28,25 @@ import java.security.Timestamp;
  */
 public class Position {
 
-    public Timestamp timestamp;
+    public Long timestamp;
     public Location location;
 
     public Position() {
         super();
     }
 
-    public Position(Timestamp timestamp, double longitude, double latitude) {
+    public Position(Long timestamp, double longitude, double latitude) {
         super();
         this.timestamp = timestamp;
         this.location.setLatitude(latitude);
         this.location.setLongitude(longitude);
     }
 
-    public Timestamp getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 

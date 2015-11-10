@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * SEARCH_LIMIT is used for the lazy loading.
  */
 public class RateemDatabaseHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASENAME = "RateemDatabase.db";
     public static final int SEARCH_LIMIT = 50;
 
@@ -66,9 +66,8 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         spot.setPostcode(cursor.getString(3));
         spot.setCity(cursor.getString(4));
         spot.setCountry(cursor.getString(5));
-        spot.location.setLatitude(cursor.getFloat(6));
-        spot.location.setLongitude(cursor.getFloat(7));
-
+        spot.setLatitude(cursor.getDouble(6));
+        spot.setLongitude(cursor.getDouble(7));
         return spot;
     }
 
@@ -185,7 +184,7 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         String selectQuery =
                         "SELECT * FROM " +
                         RateemDatabase.SpotEntry.TABLE_NAME +
-                        " WHERE city = '" +
+                        " WHERE city LIKE '" +
                         city + "'";
 
         Cursor cursor = this.db.rawQuery(selectQuery, null);

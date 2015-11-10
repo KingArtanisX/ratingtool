@@ -3,6 +3,17 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/find_me"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/find_me"/>
+
+    <TextView
+        android:id="@+id/spot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

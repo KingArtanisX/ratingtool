@@ -24,6 +24,9 @@ public class ListActivity extends AppCompatActivity{
         showSpotsInCity();
     }
 
+    /**
+     * Show a list of spots in a city
+     */
     private void showSpotsInCity() {
         String city = "Gelsenkirchen";
         this.productList = (ListView) findViewById(R.id.listView);
@@ -47,12 +50,14 @@ public class ListActivity extends AppCompatActivity{
         });
     }
 
+    /**
+     *
+     * @param spot the spot
+     * @return the distance from my location to the spot
+     */
     public float calculateDistance(Spot spot) {
-        double latitude = spot.location.getLatitude();
-        double longitude = spot.location.getLongitude();
-
-
-        return (float) 0.0;
+        CurrentPosition position = new CurrentPosition();
+        return (float) spot.location.distanceTo(position.getLocation());
     }
 
 

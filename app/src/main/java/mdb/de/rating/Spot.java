@@ -24,17 +24,32 @@ public class Spot {
         super();
     }
 
-    public Spot(String name, String street, String postcode, String city, String country, float latitude, float longitude) {
+    public Spot(String name, String street, String postcode, String city, String country, double latitude, double longitude) {
         super();
         this.name = name;
         this.street = street;
         this.postcode = postcode;
         this.city = city;
         this.country = country;
-        this.location.setLongitude(longitude);
+        this.setLongitude(longitude);
+        this.setLatitude(latitude);
+    }
+
+    public double getLatitude() {
+        return this.location.getLatitude();
+    }
+
+    public void setLatitude(double latitude) {
         this.location.setLatitude(latitude);
     }
 
+    public double getLongitude() {
+        return this.location.getLongitude();
+    }
+
+    public void setLongitude(double longitude) {
+        this.location.setLongitude(longitude);
+    }
 
     public int getId() {
         return id;

@@ -48,8 +48,8 @@ public class ListActivity extends AppCompatActivity{
     }
 
     public float calculateDistance(Spot spot) {
-        float latitude = spot.getLatitude();
-        float longitude = spot.getLongitude();
+        double latitude = spot.location.getLatitude();
+        double longitude = spot.location.getLongitude();
 
 
         return (float) 0.0;

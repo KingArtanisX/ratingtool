@@ -9,7 +9,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -30,35 +29,31 @@ import java.util.Locale;
 public class GetCurrentLocation extends Activity implements OnClickListener {
 
     private LocationManager locationManager = null;
-
     private TextView showLocation = null;
 
     Button btnGetLocation = null;
     Boolean flag = false;
     LocationListener locationListener = null;
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //if you want to lock screen for always Portrait mode
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        this.showLocation = (TextView) findViewById(R.id.spot);
-
+        this.showLocation = (TextView) findViewById(R.id.city);
         this.btnGetLocation = (Button) findViewById(R.id.find_me);
         this.btnGetLocation.setOnClickListener(this);
-
         this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
     }
 
+    /**
+     * Onclick function for the btn to load the new location
+     * @param v the View
+     */
     @Override
     public void onClick(View v) {
         this.flag = displayGpsStatus();
         if (this.flag && this.locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER)) {
-            this.showLocation.setText("Suchen...");
+            this.showLocation.setText(R.string.search);
             this.locationListener = new MyLocationListener();
             try {
                 this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this.locationListener);
@@ -74,6 +69,9 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
+    /**
+     * Show a alertbox if there is a problem with the GPS
+     */
     protected void alertbox() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Your Device's GPS is disabled")
@@ -98,11 +96,17 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
         alert.show();
     }
 
+    /**
+     * Listener for location changes
+     */
     private class MyLocationListener implements LocationListener {
 
+        /**
+         * Is called every time the location is changed.
+         * @param loc the new location
+         */
         @Override
         public void onLocationChanged(Location loc) {
-            showLocation.setText("");
             Toast.makeText(getBaseContext(), "Location changed : Lat: " + loc.getLatitude() + " Long: " + loc.getLongitude(), Toast.LENGTH_SHORT).show();
             CurrentPosition position = new CurrentPosition();
             if( position.getLatitude() == loc.getLatitude() && position.getLongitude() == loc.getLongitude()) {
@@ -118,7 +122,6 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
                 position.setLatitude(loc.getLatitude());
                 position.setLongitude(loc.getLongitude());
             }
-
             String cityName = null;
             Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
             List<Address> addresses;

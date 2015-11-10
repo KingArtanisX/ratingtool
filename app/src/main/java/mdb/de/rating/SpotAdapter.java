@@ -41,8 +41,11 @@ public class SpotAdapter extends ArrayAdapter<Spot>{
             row.setTag(holder);
         } else holder = (SpotHolder) row.getTag();
 
-        //TODO: finish
+        Spot spot = data.get(position);
 
+        holder.name.setText(spot.getName());
+        holder.distance.setText(Float.toString(spot.getDistance()));
+        holder.address.setText(spot.getStreet() + " " + spot.getPostcode());
         return row;
     }
 

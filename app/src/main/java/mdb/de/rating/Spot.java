@@ -19,20 +19,30 @@ public class Spot {
     public String country;
     public boolean visible;
     public Location location;
+    public float distance;
 
     public Spot() {
         super();
     }
 
-    public Spot(String name, String street, String postcode, String city, String country, double latitude, double longitude) {
+    public Spot(String name, String street, String postcode, String city, String country, double latitude, double longitude, float distance) {
         super();
         this.name = name;
         this.street = street;
         this.postcode = postcode;
         this.city = city;
         this.country = country;
-        this.setLongitude(longitude);
-        this.setLatitude(latitude);
+        this.location.setLongitude(longitude);
+        this.location.setLatitude(latitude);
+        this.distance = distance;
+    }
+
+    public float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
     }
 
     public double getLatitude() {

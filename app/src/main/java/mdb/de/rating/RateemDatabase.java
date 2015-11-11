@@ -23,7 +23,6 @@ public class RateemDatabase {
 
         private static final String VARCHAR_TYPE = " VARCHAR(255)";
         private static final String BOOL_TYPE = " BOOLEAN";
-
         private static final String COMMA_SEP = ",";
 
         public static final String SQL_CREATE_ENTRIES =
@@ -259,9 +258,6 @@ public class RateemDatabase {
         public static final String COLUMN_NAME_NAME = "name";
 
         private static final String VARCHAR_TYPE = " VARCHAR(255)";
-        private static final String BOOL_TYPE = " BOOLEAN";
-
-        private static final String COMMA_SEP = ",";
 
         public static final String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " +

@@ -1,5 +1,6 @@
 package mdb.de.rating;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -47,6 +48,87 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         this.db.execSQL(RateemDatabase.RatingEntry.SQL_CREATE_ENTRIES);
         this.db.execSQL(RateemDatabase.UserEntry.SQL_CREATE_ENTRIES);
         this.db.execSQL(RateemDatabase.UserRanksEntry.SQL_CREATE_ENTRIES);
+
+        ContentValues values = new ContentValues();
+        values.put("name", "Essen & Trinken");
+        values.put("deletable", "n");
+        this.db.insert(RateemDatabase.CategoryEntry.TABLE_NAME, null, values);
+        values.clear();
+        values.put("name", "Lifestyle");
+        values.put("deletable", "n");
+        this.db.insert(RateemDatabase.CategoryEntry.TABLE_NAME, null, values);
+        values.clear();
+        values.put("name", "Sport");
+        values.put("deletable", "n");
+        this.db.insert(RateemDatabase.CategoryEntry.TABLE_NAME, null, values);
+        values.clear();
+        values.put("name", "Shopping");
+        values.put("deletable", "n");
+        this.db.insert(RateemDatabase.CategoryEntry.TABLE_NAME, null, values);
+
+
+        values.clear();
+        values.put("name", "Veltins Arena");
+        values.put("street", "Arenaring 1");
+        values.put("postcode", "45891");
+        values.put("city", "Gelsenkirchen");
+        values.put("country", "Deutschland");
+        values.put("longitude", "7.067639");
+        values.put("latitude", "51.554472");
+        values.put("visible", "y");
+        values.put("deletable", "n");
+        this.db.insert(RateemDatabase.SpotEntry.TABLE_NAME, null, values);
+        values.clear();
+        values.put("name", "Alte Hütte");
+        values.put("street", "Middelicher Str. 187");
+        values.put("postcode", "45892 ");
+        values.put("city", "Gelsenkirchen");
+        values.put("country", "Deutschland");
+        values.put("longitude", "7.101099");
+        values.put("latitude", "51.576610");
+        values.put("visible", "y");
+        values.put("deletable", "n");
+        this.db.insert(RateemDatabase.SpotEntry.TABLE_NAME, null, values);
+        values.clear();
+        values.put("name", "Copa Ca Backum");
+        values.put("street", "Teichstraße 18");
+        values.put("postcode", "45699");
+        values.put("city", "Herten");
+        values.put("country", "Deutschland");
+        values.put("longitude", "7.139513");
+        values.put("latitude", "51.602867");
+        values.put("visible", "y");
+        values.put("deletable", "n");
+        this.db.insert(RateemDatabase.SpotEntry.TABLE_NAME, null, values);
+        values.clear();
+        values.put("name", "Hotel und Restaurant La Scala");
+        values.put("street", "Schlesischer Ring 3");
+        values.put("postcode", "45894");
+        values.put("city", "Gelsenkirchen");
+        values.put("country", "Deutschland");
+        values.put("longitude", "7.042336");
+        values.put("latitude", "51.581573");
+        values.put("visible", "y");
+        values.put("deletable", "n");
+        this.db.insert(RateemDatabase.SpotEntry.TABLE_NAME, null, values);
+
+        values.clear();
+        values.put("spot_id", 1);
+        values.put("category_id", 3);
+        this.db.insert(RateemDatabase.SpotCategoryEntry.TABLE_NAME, null, values);
+        values.clear();
+        values.put("spot_id", 2);
+        values.put("category_id", 2);
+        this.db.insert(RateemDatabase.SpotCategoryEntry.TABLE_NAME, null, values);
+        values.clear();
+        values.put("spot_id", 3);
+        values.put("category_id", 3);
+        this.db.insert(RateemDatabase.SpotCategoryEntry.TABLE_NAME, null, values);
+        values.clear();
+        values.put("spot_id", 4);
+        values.put("category_id", 1);
+        this.db.insert(RateemDatabase.SpotCategoryEntry.TABLE_NAME, null, values);
+
     }
 
     @Override

@@ -7,12 +7,13 @@
         android:id="@+id/find_me"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/find_me"/>
+        android:text="@string/find_me" />
 
     <TextView
-        android:id="@+id/spot"
+        android:id="@+id/city"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/find_me" />
 
     <ListView
         android:layout_width="match_parent"

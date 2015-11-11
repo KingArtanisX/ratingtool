@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -14,13 +15,19 @@ import java.util.ArrayList;
  */
 public class ListActivity extends AppCompatActivity{
     ArrayList<Spot> spots;
-    ListView productList;
+    ListView spotList;
     SpotAdapter arrayAdapter;
+    CurrentPosition currentPosition;
+    TextView city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.currentPosition = new CurrentPosition();
+        this.city = (TextView) findViewById(R.id.city);
+
+        this.city.setText(this.currentPosition.getCity());
         showSpotsInCity();
     }
 
@@ -28,21 +35,24 @@ public class ListActivity extends AppCompatActivity{
      * Show a list of spots in a city
      */
     private void showSpotsInCity() {
-        String city = "Gelsenkirchen";
-        this.productList = (ListView) findViewById(R.id.listView);
+        String city = this.currentPosition.getCity();
+        this.spotList = (ListView) findViewById(R.id.listView);
         RateemDatabaseHelper helper = new RateemDatabaseHelper(this);
 
         this.spots = helper.getSpotsForCity(city, 0);
+        for (Spot spot: this.spots) {
+            spot.setDistance(calculateDistance(spot));
+        }
         this.arrayAdapter = new SpotAdapter(
                 this,
                 R.layout.list_items,
                 this.spots);
 
-        this.productList.setAdapter(this.arrayAdapter);
-        productList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        this.spotList.setAdapter(this.arrayAdapter);
+        this.spotList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Spot spot = (Spot) productList.getItemAtPosition(position);
+                Spot spot = (Spot) spotList.getItemAtPosition(position);
                 Intent intent = new Intent(ListActivity.this, RatingActivity.class);
                 intent.putExtra("id", spot.getId());
                 startActivity(intent);
@@ -52,14 +62,12 @@ public class ListActivity extends AppCompatActivity{
 
     /**
      *
+     * Calculates the distance from the last current position to a spot.
      * @param spot the spot
      * @return the distance from my location to the spot
      */
     public float calculateDistance(Spot spot) {
         CurrentPosition position = new CurrentPosition();
-        return (float) spot.location.distanceTo(position.getLocation());
+        return spot.location.distanceTo(position.getLocation());
     }
-
-
-
 }

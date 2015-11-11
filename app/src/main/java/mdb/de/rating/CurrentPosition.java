@@ -5,6 +5,10 @@ import android.location.Location;
 /**
  * Created by LethmateB on 10.11.2015.
  */
+
+/**
+ * Logs the current position (only once a time)
+ */
 public class CurrentPosition {
     public Location location;
     public String city;
@@ -49,6 +53,4 @@ public class CurrentPosition {
     public void setLongitude(double longitude) {
         this.location.setLongitude(longitude);
     }
-
-
 }

@@ -4,4 +4,17 @@
     <string name="action_settings">Settings</string>
     <string name="find_me">Standort suchen</string>
     <string name="search">Suchen</string>
+
+    <string name="nav_locations">Orte</string>
+    <string name="nav_near_to_me">In meiner Nähe</string>
+    <string name="nav_search">Suche</string>
+    <string name="nav_profile">Profil</string>
+    <string name="nav_settings">Einstellungen</string>
+    <string name="nav_about">Über diese App</string>
+    <string name="nav_share">Meinen Freunden berichten</string>
+    <string name="nav_purchase">Pro Version Kaufen</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

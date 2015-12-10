@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -36,7 +37,8 @@ public class SpotAdapter extends ArrayAdapter<Spot>{
             holder = new SpotHolder();
             holder.name = (TextView) row.findViewById(R.id.spotName);
             holder.distance = (TextView) row.findViewById(R.id.distance);
-            holder.address = (TextView) row.findViewById(R.id.address);
+            holder.street = (TextView) row.findViewById(R.id.street);
+            holder.city = (TextView) row.findViewById(R.id.city);
 
             row.setTag(holder);
         } else holder = (SpotHolder) row.getTag();
@@ -45,13 +47,15 @@ public class SpotAdapter extends ArrayAdapter<Spot>{
 
         holder.name.setText(spot.getName());
         holder.distance.setText(Float.toString(spot.getDistance()));
-        holder.address.setText(spot.getStreet() + " " + spot.getPostcode());
+        holder.street.setText(spot.getStreet());
+        holder.city.setText(spot.getPostcode() + " " + spot.getCity());
         return row;
     }
 
     static class SpotHolder {
         TextView name;
         TextView distance;
-        TextView address;
+        TextView street;
+        TextView city;
     }
 }

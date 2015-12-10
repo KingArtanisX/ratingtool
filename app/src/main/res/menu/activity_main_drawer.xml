@@ -3,11 +3,7 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_locations"
-            android:icon="@mipmap/ic_location_on_black_24dp"
-            android:title="@string/nav_locations"/>
-        <item
-            android:id="@+id/nav_near_to_me"
+            android:id="@+id/nav_close_to_me"
             android:icon="@mipmap/ic_near_me_black_24dp"
             android:title="@string/nav_near_to_me" />
         <item

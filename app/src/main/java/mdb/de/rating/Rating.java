@@ -1,7 +1,5 @@
 package mdb.de.rating;
 
-import org.w3c.dom.Text;
-
 /**
  * Created by LethmateB on 04.11.2015.
  */
@@ -10,52 +8,72 @@ import org.w3c.dom.Text;
  * A single Rating for a spot.
  */
 public class Rating {
-    public Text text;
-    public int user_id;
-    public int spot_id;
-    public int reports;
+    public Integer id;
+    public String text;
+    public Integer user_id;
+    public Integer spot_id;
+    public Integer reports;
+    public Float rating;
+
 
     public Rating() {
         super();
     }
 
-    public Rating(Text text, int user_id, int spot_id, int reports) {
+    public Rating(Integer id, String text, Integer user_id, Integer spot_id, Integer reports) {
         super();
+        this.id = id;
         this.text = text;
         this.user_id = user_id;
         this.spot_id = spot_id;
         this.reports = reports;
     }
 
-    public Text getText() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getText() {
         return text;
     }
 
-    public void setText(Text text) {
+    public void setText(String text) {
         this.text = text;
     }
 
-    public int getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(Integer user_id) {
         this.user_id = user_id;
     }
 
-    public int getSpot_id() {
+    public Integer getSpot_id() {
         return spot_id;
     }
 
-    public void setSpot_id(int spot_id) {
+    public void setSpot_id(Integer spot_id) {
         this.spot_id = spot_id;
     }
 
-    public int getReports() {
+    public Integer getReports() {
         return reports;
     }
 
-    public void setReports(int reports) {
+    public void setReports(Integer reports) {
         this.reports = reports;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
     }
 }

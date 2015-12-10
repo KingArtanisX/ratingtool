@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_close_to_me"
+            android:icon="@mipmap/ic_near_me_black_24dp"
+            android:title="@string/nav_near_to_me" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@mipmap/ic_search_black_24dp"
+            android:title="@string/nav_search" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@mipmap/ic_person_black_24dp"
+            android:title="@string/nav_profile"/>
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@mipmap/ic_settings_black_24dp"
+            android:title="@string/nav_settings"
+            android:enabled="false"/>
+    </group>
+
+    <item android:title="@string/nav_about">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@mipmap/ic_share_black_24dp"
+                android:title="@string/nav_share"
+                android:enabled="false"/>
+            <item
+                android:id="@+id/nav_purchase"
+                android:icon="@mipmap/ic_shopping_cart_black_24dp"
+                android:title="@string/nav_purchase"
+                android:enabled="false" />
+        </menu>
+    </item>
+
+</menu>

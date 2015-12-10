@@ -4,65 +4,83 @@ package mdb.de.rating;
  * Created by LethmateB on 04.11.2015.
  */
 
-import android.location.Location;
 
 /**
  * A Spot
  */
 public class Spot {
 
-    public int id;
+    public Integer id;
     public String name;
     public String street;
     public String postcode;
     public String city;
     public String country;
-    public boolean visible;
-    public Location location;
-    public float distance;
+    public Boolean visible;
+    public Long latitude;
+    public Long longitude;
+    public Float distance;
+    public Float rating;
 
     public Spot() {
         super();
     }
 
-    public Spot(String name, String street, String postcode, String city, String country, double latitude, double longitude, float distance) {
+    public Spot(String name, String street, String postcode, String city, String country, Long latitude, Long longitude, Float distance, Float rating) {
         super();
         this.name = name;
         this.street = street;
         this.postcode = postcode;
         this.city = city;
         this.country = country;
-        this.location.setLongitude(longitude);
-        this.location.setLatitude(latitude);
+        this.latitude = longitude;
+        this.longitude = latitude;
         this.distance = distance;
+        this.rating = rating;
     }
 
-    public float getDistance() {
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
+    }
+
+    public Float getDistance() {
         return distance;
     }
 
-    public void setDistance(float distance) {
+    public void setDistance(Float distance) {
         this.distance = distance;
     }
 
-    public double getLatitude() {
-        return this.location.getLatitude();
+    public Long getLatitude() {
+        return this.latitude;
     }
 
-    public void setLatitude(double latitude) {
-        this.location.setLatitude(latitude);
+    public void setLatitude(Long latitude) {
+        this.latitude = latitude;
     }
 
-    public double getLongitude() {
-        return this.location.getLongitude();
+    public Long getLongitude() {
+        return this.longitude;
     }
 
-    public void setLongitude(double longitude) {
-        this.location.setLongitude(longitude);
+    public void setLongitude(Long longitude) {
+        this.longitude = longitude;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -105,11 +123,11 @@ public class Spot {
         this.country = country;
     }
 
-    public boolean isVisible() {
+    public Boolean isVisible() {
         return visible;
     }
 
-    public void setVisible(boolean visible) {
+    public void setVisible(Boolean visible) {
         this.visible = visible;
     }
 }

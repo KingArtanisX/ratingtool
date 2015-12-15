@@ -222,7 +222,7 @@ public class RateemDatabase {
         public static final String COLUMN_NAME_REPORTS = "reports";
 
         private static final String INT_TYPE = " INTEGER";
-        private static final String TEXT_TXPE = " TEXT";
+        private static final String VARCHAR_TYPE = " VARCHAR(140)";
 
         private static final String COMMA_SEP = ",";
 
@@ -233,7 +233,7 @@ public class RateemDatabase {
                         RatingEntry.COLUMN_NAME_ID +
                         " INTEGER PRIMARY KEY," +
                         RatingEntry.COLUMN_NAME_TEXT +
-                        TEXT_TXPE +
+                        VARCHAR_TYPE +
                         COMMA_SEP +
                         RatingEntry.COLUMN_NAME_USER_ID +
                         INT_TYPE +

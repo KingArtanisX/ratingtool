@@ -7,15 +7,20 @@ package mdb.de.rating;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.RatingBar;
@@ -69,6 +74,12 @@ public class NewRatingFragment extends Fragment{
             this.linearLayout.addView(ratingBar);
         }
 
+        EditText comment = new EditText(getActivity());
+        comment.setSingleLine(false);
+        comment.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        comment.setFilters( new InputFilter[] { new InputFilter.LengthFilter(140) } );
+        this.linearLayout.addView(comment);
+
 
 
         return view;
@@ -89,6 +100,7 @@ public class NewRatingFragment extends Fragment{
         this.linearLayout.getChildCount();
         Integer i = 0;
         ArrayList<CriterionRating> criterionRatingArrayList = new ArrayList<>();
+
         do {
             i++;
             CriterionRating criterionRating = new CriterionRating();
@@ -99,11 +111,18 @@ public class NewRatingFragment extends Fragment{
             RatingBar ratingBar = (RatingBar) this.linearLayout.findViewById(i);
             Float rating = ratingBar.getRating();
 
-            criterionRating.setSpotid(this.spotId);
             criterionRating.setName(text);
             criterionRating.setRating(rating);
             criterionRatingArrayList.add(criterionRating);
-        }while (this.linearLayout.getChildCount() >= i);
+        } while (this.linearLayout.getChildCount() >= i);
+
+        /**
+         * TODO:
+         * new Rating
+         * fill data
+         * call insertRatingForSpot() in helper
+         * return the return of insertRatingForSpot()
+         */
 
         return true;
     }

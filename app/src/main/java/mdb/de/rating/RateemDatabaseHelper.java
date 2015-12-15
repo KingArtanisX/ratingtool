@@ -94,6 +94,8 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         return spot;
     }
 
+    //region getters
+
     public ArrayList<Criterion> getCriteriaForSpot(Integer spotid) {
         ArrayList<Criterion> criterionArrayList = new ArrayList<>();
         String selectQuery =
@@ -388,6 +390,25 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         return userRanksList;
     }
 
+    //endregion getters
+
+    //region inserts
+
+    public Boolean insertRatingForSpot( ArrayList<CriterionRating> criterionRatingArrayList, Rating rating) {
+        ContentValues values = new ContentValues();
+
+        /**
+         * TODO:
+         * block rating table for others
+         * insert Rating into DB
+         * select id of last rating
+         * open rating table for others
+         * insert CriterionValuationEntry
+         *
+         */
+        return true;
+    }
+
     public void insertDemoData() {
         ContentValues values = new ContentValues();
 
@@ -561,4 +582,5 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         this.db.insert(RateemDatabase.SpotCriteriaEntry.TABLE_NAME, null, values);
         values.clear();
     }
+    //endregion inserts
 }

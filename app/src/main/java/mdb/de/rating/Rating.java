@@ -9,12 +9,11 @@ package mdb.de.rating;
  */
 public class Rating {
     public Integer id;
-    public String text;
-    public Integer user_id;
-    public Integer spot_id;
-    public Integer reports;
-    public Float rating;
-
+    public String text = "";
+    public Integer user_id = 0;
+    public Integer spot_id = 0;
+    public Integer reports = 0;
+    public Float rating = 0F;
 
     public Rating() {
         super();

@@ -19,7 +19,7 @@ public class Spot {
     public Boolean visible;
     public Long latitude;
     public Long longitude;
-    public Float distance;
+    public Float distance = 0.0F;
     public Float rating;
 
     public Spot() {

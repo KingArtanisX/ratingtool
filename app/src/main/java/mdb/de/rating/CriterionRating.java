@@ -5,13 +5,13 @@ package mdb.de.rating;
  */
 public class CriterionRating {
     public String name;
-    public Float rating; //stars
+    public Integer rating; //stars
 
     public CriterionRating() {
         super();
     }
 
-    public CriterionRating(String name, Float rating) {
+    public CriterionRating(String name, Integer rating) {
         super();
         this.name = name;
         this.rating = rating;
@@ -25,11 +25,11 @@ public class CriterionRating {
         this.name = name;
     }
 
-    public Float getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(Float rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 }

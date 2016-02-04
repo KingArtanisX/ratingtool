@@ -9,6 +9,7 @@ import android.util.Log;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by LethmateB on 04.11.2015.
@@ -72,6 +73,7 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         rating.setUser_id(cursor.getInt(2));
         rating.setSpot_id(cursor.getInt(3));
         rating.setReports(cursor.getInt(4));
+        rating.setRating(getRatingForValuation(cursor.getInt(0)));
         return rating;
     }
 
@@ -95,6 +97,11 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
     }
 
     //region getters
+    public Spot getFavouriteSpotForUser(Integer userid) {
+        Spot spot = new Spot();
+        //TODO: Finish it
+        return spot;
+    }
 
     public ArrayList<Criterion> getCriteriaForSpot(Integer spotid) {
         ArrayList<Criterion> criterionArrayList = new ArrayList<>();
@@ -131,8 +138,35 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         return criterionArrayList;
     }
 
+    public Float getRatingForValuation(Integer ratingid) {
+        Float rating = 0F;
+        Float returnRating = 0F;
+        Integer e = 0;
+        e++;
+        String selectQuery =
+                "SELECT stars FROM " +
+                        RateemDatabase.CriterionValuationEntry.TABLE_NAME +
+                        " WHERE " +
+                        RateemDatabase.CriterionValuationEntry.COLUMN_NAME_RATING_ID +
+                        "=" +
+                        ratingid;
+        Cursor cursor2 = this.db.rawQuery(selectQuery, null);
+        if (cursor2.moveToFirst()) {
+            Integer i = 0;
+            do {
+                i++;
+                rating += cursor2.getInt(0);
+            } while (cursor2.moveToNext());
+            returnRating += rating/i;
+        }
+        cursor2.close();
+
+        return returnRating/e;
+    }
     public Float getRatingForSpot(Integer spotid) {
         Float rating = 0F;
+        Float endrating = 0F;
+        Integer e = 0;
         String selectQuery =
                 "SELECT id FROM " +
                         RateemDatabase.RatingEntry.TABLE_NAME +
@@ -143,27 +177,16 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = this.db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                selectQuery =
-                        "SELECT stars FROM " +
-                                RateemDatabase.CriterionValuationEntry.TABLE_NAME +
-                                " WHERE " +
-                                RateemDatabase.CriterionValuationEntry.COLUMN_NAME_RATING_ID +
-                                "=" +
-                                cursor.getInt(0);
-                Cursor cursor2 = this.db.rawQuery(selectQuery, null);
-                if (cursor2.moveToFirst()) {
-                    Integer i = 0;
-                    do {
-                        i++;
-                        rating += cursor2.getInt(0);
-                    } while (cursor2.moveToNext());
-                    rating = rating/i;
-                }
-                cursor2.close();
+                e++;
+                rating += getRatingForValuation(cursor.getInt(0));
             } while (cursor.moveToNext());
         }
+        endrating = rating/e;
+        endrating = endrating*2;
+        Integer round = Math.round(endrating);
+        endrating = (float) round/2;
         cursor.close();
-        return rating;
+        return endrating;
     }
 
     public ArrayList<Rating> getRatingsForSpot(Integer spotid, Integer start) {
@@ -192,6 +215,25 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
 
         cursor.close();
         return ratingArrayList;
+    }
+
+    public Integer getCriteriaId(String name) {
+        Integer id = 0;
+        String selectQuery =
+                "SELECT id FROM " +
+                RateemDatabase.CriterionEntry.TABLE_NAME +
+                " WHERE " +
+                RateemDatabase.CriterionEntry.COLUMN_NAME_NAME +
+                " LIKE '" +
+                name +
+                "'";
+        Cursor cursor = this.db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            id =  cursor.getInt(0);
+        }
+        cursor.close();
+
+        return id;
     }
 
     /**
@@ -263,7 +305,7 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
                         search +
                         "%' OR postcode like '%" +
                         search +
-                        "%' OR country like " +
+                        "%' OR country like '%" +
                         search +
                         "%' OR name like '%" +
                         search + "%'";
@@ -390,23 +432,105 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         return userRanksList;
     }
 
+
+    public Integer getReportsForRating(Integer ratingId) {
+        String selectQuery =
+                "SELECT * FROM " +
+                        RateemDatabase.RatingEntry.TABLE_NAME +
+                        " WHERE id LIKE '" +
+                        ratingId + "'";
+
+        Cursor cursor = this.db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            Integer ret = cursor.getInt(0);
+            cursor.close();
+            return ret;
+        }
+        cursor.close();
+        return 0;
+    }
+
+    public User getUserInfoForEmail(String email) {
+        User user = new User();
+        String selectQuery =
+                "SELECT * FROM " +
+                        RateemDatabase.UserEntry.TABLE_NAME +
+                        " WHERE email LIKE '" +
+                        email + "'";
+        Cursor cursor = this.db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            if(email.equals(cursor.getString(1))) {
+                user.setAlias(cursor.getString(0));
+                user.setEmail(email);
+                user.setPassword_hash(cursor.getString(2));
+            }
+        }
+        cursor.close();
+        return user;
+    }
     //endregion getters
 
     //region inserts
 
-    public Boolean insertRatingForSpot( ArrayList<CriterionRating> criterionRatingArrayList, Rating rating) {
-        ContentValues values = new ContentValues();
+    public Boolean changeUserName (User user, String name) {
+        ContentValues userValues = new ContentValues();
+        userValues.put(RateemDatabase.UserEntry.COLUMN_NAME_ALIAS, name);
+        return (this.db.update(RateemDatabase.UserEntry.TABLE_NAME, userValues, "where " + RateemDatabase.UserEntry.COLUMN_NAME_ALIAS + " = "+user.getAlias(), null) > 0);
+    }
 
-        /**
-         * TODO:
-         * block rating table for others
-         * insert Rating into DB
-         * select id of last rating
-         * open rating table for others
-         * insert CriterionValuationEntry
-         *
-         */
-        return true;
+    public Boolean changeLastLogin (User user) {
+        ContentValues userValues = new ContentValues();
+        Calendar cal = Calendar.getInstance();
+        userValues.put(RateemDatabase.UserEntry.COLUMN_NAME_LAST_LOGIN, cal.getTimeInMillis());
+        return (this.db.update(RateemDatabase.UserEntry.TABLE_NAME, userValues, "where " + RateemDatabase.UserEntry.COLUMN_NAME_ALIAS + " = "+user.getAlias(), null) > 0);
+    }
+
+    public Boolean insertRatingForSpot( ArrayList<CriterionRating> criterionRatingArrayList, Rating rating) {
+        ContentValues ratingValues = new ContentValues();
+        ContentValues valuationValues = new ContentValues();
+        Long id;
+
+        ratingValues.put(RateemDatabase.RatingEntry.COLUMN_NAME_LOCATION_ID, rating.getSpot_id());
+        ratingValues.put(RateemDatabase.RatingEntry.COLUMN_NAME_REPORTS, rating.getReports());
+        ratingValues.put(RateemDatabase.RatingEntry.COLUMN_NAME_TEXT, rating.getText());
+        ratingValues.put(RateemDatabase.RatingEntry.COLUMN_NAME_USER_ID, rating.getUser_id());
+        id = this.db.insert(RateemDatabase.RatingEntry.TABLE_NAME, null, ratingValues);
+
+        Integer failed = 0;
+        Integer succeed = 0;
+        if(id != -1) {
+            for (CriterionRating criterionRating : criterionRatingArrayList ) {
+                Integer criterionid = getCriteriaId(criterionRating.getName());
+                valuationValues.put(RateemDatabase.CriterionValuationEntry.COLUMN_NAME_CRITERION_ID, criterionid);
+                valuationValues.put(RateemDatabase.CriterionValuationEntry.COLUMN_NAME_RATING_ID, id);
+                valuationValues.put(RateemDatabase.CriterionValuationEntry.COLUMN_NAME_STARS, criterionRating.getRating());
+                if( this.db.insert(RateemDatabase.CriterionValuationEntry.TABLE_NAME, null, valuationValues) == -1) {
+                    failed++;
+                } else succeed++;
+            }
+        }
+        return failed > succeed ;
+    }
+
+    public Integer reportRating(Report report) {
+        ContentValues reportValues = new ContentValues();
+        Long id;
+
+        reportValues.put(RateemDatabase.ReportEntry.COLUMN_NAME_RATING_ID, report.getRatingId());
+        reportValues.put(RateemDatabase.ReportEntry.COLUMN_NAME_USER_ID, report.getUserId());
+        reportValues.put(RateemDatabase.ReportEntry.COLUMN_NAME_REASON, report.getReason());
+        id = this.db.insert(RateemDatabase.ReportEntry.TABLE_NAME, null, reportValues);
+
+        if(id != -1) {
+            Integer reports = this.getReportsForRating(report.getRatingId());
+            reports += 1;
+            ContentValues reportsCount = new ContentValues();
+            reportsCount.put(RateemDatabase.RatingEntry.COLUMN_NAME_REPORTS, reports);
+            return this.db.update(RateemDatabase.ReportEntry.TABLE_NAME, reportsCount, "where id = "+report.getRatingId(), null);
+        }
+        return 0;
     }
 
     public void insertDemoData() {
@@ -577,6 +701,12 @@ public class RateemDatabaseHelper extends SQLiteOpenHelper {
         values.put("criterion_id", 6);
         this.db.insert(RateemDatabase.SpotCriteriaEntry.TABLE_NAME, null, values);
         values.clear();
+        values.put("spot_id", 3);
+        values.put("criterion_id", 7);
+        this.db.insert(RateemDatabase.SpotCriteriaEntry.TABLE_NAME, null, values);
+        values.clear();
+
+        /* User/MostVisited*/
         values.put("spot_id", 3);
         values.put("criterion_id", 7);
         this.db.insert(RateemDatabase.SpotCriteriaEntry.TABLE_NAME, null, values);

@@ -14,12 +14,12 @@ import java.util.ArrayList;
 /**
  * Created by LethmateB on 09.11.2015.
  */
-public class SpotAdapter extends ArrayAdapter<Spot>{
+public class AdapterSpot extends ArrayAdapter<Spot>{
     Context context;
     int layoutResourceId;
     ArrayList<Spot> data = null;
 
-    public SpotAdapter(Context context, int layoutResourceId, ArrayList<Spot> data) {
+    public AdapterSpot(Context context, int layoutResourceId, ArrayList<Spot> data) {
         super(context, layoutResourceId, data);
         this.context = context;
         this.layoutResourceId = layoutResourceId;
@@ -44,6 +44,7 @@ public class SpotAdapter extends ArrayAdapter<Spot>{
         } else holder = (SpotHolder) row.getTag();
 
         Spot spot = data.get(position);
+
 
         holder.name.setText(spot.getName());
         holder.distance.setText(Float.toString(spot.getDistance()));

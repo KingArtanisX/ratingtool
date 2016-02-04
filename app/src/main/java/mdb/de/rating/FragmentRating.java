@@ -5,17 +5,21 @@ package mdb.de.rating;
  */
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -26,16 +30,15 @@ import java.util.ArrayList;
 /**
  * The functionality behind the GUI to show the average and the last rating for a spot.
  */
-public class RatingFragment extends Fragment {
+public class FragmentRating extends Fragment {
     RatingBar rating;
     TextView nameText;
     TextView streetText;
     TextView cityText;
     TextView countryText;
-    RatingAdapter arrayAdapter;
+    AdapterRating arrayAdapter;
     ListView ratingsListView;
     MenuItem navBtn;
-    MenuItem saveBtn;
     Menu menu;
 
     Spot spot;
@@ -44,7 +47,7 @@ public class RatingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.rating_view, container, false);
+        View view = inflater.inflate(R.layout.view_rating, container, false);
         setHasOptionsMenu(true);
 
         FloatingActionButton add = (FloatingActionButton) getActivity().findViewById(R.id.add);
@@ -52,10 +55,10 @@ public class RatingFragment extends Fragment {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new NewRatingFragment();
+                Fragment fragment = new FragmentNewRating();
 
                 String title = "Neue Bewertung";
-                ( (MainActivity) getActivity()).setActionBarTitle(title);
+                ( (ActivityMain) getActivity()).setActionBarTitle(title);
 
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", spot.getId());
@@ -82,19 +85,35 @@ public class RatingFragment extends Fragment {
         this.streetText.setText(this.spot.getStreet());
         this.cityText.setText(this.spot.getPostcode() + " " + this.spot.getCity());
         this.countryText.setText(this.spot.getCountry());
-        Log.e("RATING=============", this.spot.getRating().toString());
         this.rating.setRating(this.spot.getRating());
-        this.rating.setStepSize(this.spot.getRating());
+        Drawable stars = this.rating.getProgressDrawable();
+        DrawableCompat.setTint(stars, Color.rgb(229, 225, 0));
+
 
 
         ArrayList<Rating> ratings = helper.getRatingsForSpot(this.spotId, 0);
 
-        this.arrayAdapter = new RatingAdapter(
+        this.arrayAdapter = new AdapterRating(
                 getActivity(),
                 R.layout.rating_list_item,
                 ratings);
 
         this.ratingsListView.setAdapter(this.arrayAdapter);
+        this.ratingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Rating rating = (Rating) ratingsListView.getItemAtPosition(position);
+
+                ((ActivityMain) getActivity()).setViewIsAtHome(false);
+                Fragment fragment = new FragmentSingleRating();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", rating.getId());
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, fragment);
+                ft.commit();
+            }
+        });
 
         return view;
     }
@@ -119,13 +138,10 @@ public class RatingFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu);
-        this.menu = menu;
-        this.saveBtn = menu.findItem(R.id.saveBtn);
-        this.navBtn = menu.findItem(R.id.navBtn);
-        this.saveBtn.setVisible(false);
-        this.navBtn.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
+        this.menu = menu;
+        this.navBtn = menu.findItem(R.id.navBtn);
+        this.navBtn.setVisible(true);
     }
 
     public float calculateDistance(Spot spot) {

@@ -6,6 +6,6 @@ import android.view.MenuItem;
 /**
  * Created by LethmateB on 08.12.2015.
  */
-public class SettingsFragment extends Fragment {
+public class FragmentSettings extends Fragment {
     MenuItem navBtn;
 }

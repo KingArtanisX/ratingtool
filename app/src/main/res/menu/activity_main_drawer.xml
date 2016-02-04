@@ -15,6 +15,21 @@
             android:icon="@mipmap/ic_person_black_24dp"
             android:title="@string/nav_profile"/>
         <item
+            android:id="@+id/nav_ratings"
+            android:icon="@mipmap/ic_equalizer_black_24dp"
+            android:title="@string/nav_ratings"
+            android:enabled="false"/>
+        <item
+            android:id="@+id/nav_favourits"
+            android:icon="@mipmap/ic_favorite_black_24dp"
+            android:title="@string/nav_favourites"
+            android:enabled="false"/>
+        <item
+            android:id="@+id/nav_ranks"
+            android:icon="@mipmap/ic_turned_in_black_24dp"
+            android:title="@string/nav_ranks"
+            android:enabled="false"/>
+        <item
             android:id="@+id/nav_settings"
             android:icon="@mipmap/ic_settings_black_24dp"
             android:title="@string/nav_settings"

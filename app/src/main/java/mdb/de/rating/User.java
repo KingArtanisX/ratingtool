@@ -1,10 +1,12 @@
 package mdb.de.rating;
 
-import java.security.Timestamp;
+
 
 /**
  * Created by LethmateB on 04.11.2015.
  */
+
+import java.sql.Timestamp;
 
 /**
  * A User.

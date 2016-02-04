@@ -5,10 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main"
-    tools:context=".MainActivity" >
+    tools:context=".ActivityMain" >
 
     <RatingBar
         android:layout_width="wrap_content"
@@ -78,8 +78,9 @@
         android:id="@+id/ratingsLabel" />
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/ratingsListView"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:isScrollContainer="false" />
 
 </LinearLayout>

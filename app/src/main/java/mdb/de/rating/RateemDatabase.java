@@ -115,7 +115,6 @@ public class RateemDatabase {
         public static final String COLUMN_NAME_LAST_LOGIN = "last_login";
 
         private static final String VARCHAR_TYPE = " VARCHAR(255)";
-        private static final String TIMESTAMP_TYPE = " TIMESTAMP";
         private static final String BOOL_TYPE = " BOOLEAN";
 
         private static final String COMMA_SEP = ",";
@@ -139,7 +138,7 @@ public class RateemDatabase {
                         BOOL_TYPE +
                         COMMA_SEP +
                         UserEntry.COLUMN_NAME_LAST_LOGIN +
-                        TIMESTAMP_TYPE +
+                        VARCHAR_TYPE +
                         " )";
 
         public static final String SQL_DELETE_ENTRIES =
@@ -247,6 +246,41 @@ public class RateemDatabase {
 
         public static final String SQL_DELETE_ENTRIES =
                 "DROP TABLE IF EXISTS " + RatingEntry.TABLE_NAME;
+    }
+
+    /**
+     * The reports entry for the Database
+     */
+    public static abstract class ReportEntry implements BaseColumns {
+        public static final String TABLE_NAME = "reports";
+        public static final String COLUMN_NAME_ID = "id";
+        public static final String COLUMN_NAME_RATING_ID = "rating_id";
+        public static final String COLUMN_NAME_USER_ID = "user_id";
+        public static final String COLUMN_NAME_REASON = "reason";
+
+        private static final String INT_TYPE = " INTEGER";
+        private static final String VARCHAR_TYPE = " VARCHAR(140)";
+
+        private static final String COMMA_SEP = ",";
+
+        public static final String SQL_CREATE_ENTRIES =
+                "CREATE TABLE " +
+                        ReportEntry.TABLE_NAME +
+                        " (" +
+                        ReportEntry.COLUMN_NAME_ID +
+                        " INTEGER PRIMARY KEY," +
+                        ReportEntry.COLUMN_NAME_RATING_ID +
+                        VARCHAR_TYPE +
+                        COMMA_SEP +
+                        ReportEntry.COLUMN_NAME_USER_ID +
+                        INT_TYPE +
+                        COMMA_SEP +
+                        ReportEntry.COLUMN_NAME_REASON +
+                        VARCHAR_TYPE +
+                        " )";
+
+        public static final String SQL_DELETE_ENTRIES =
+                "DROP TABLE IF EXISTS " + ReportEntry.TABLE_NAME;
     }
 
     /**
